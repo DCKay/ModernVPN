@@ -77,7 +77,7 @@
                             </Track.IncreaseRepeatButton>
 
                             <Track.Thumb>
-                                <Thumb/>
+                                <Thumb />
                             </Track.Thumb>
                         </Track>
                     </Grid>

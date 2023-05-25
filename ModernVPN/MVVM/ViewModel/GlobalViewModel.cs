@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ModernVPN.MVVM.ViewModel
+﻿namespace ModernVPN.MVVM.ViewModel
 {
-    class GlobalViewModel
+    internal class GlobalViewModel
     {
         public static GlobalViewModel Instance { get; } = new GlobalViewModel();
 
-		private bool _isAwesome;
+        private bool _isAwesome;
 
-		public bool IsAwesome
-		{
-			get { return _isAwesome; }
-			set { _isAwesome = value; }
-		}
-
-	}
+        public bool IsAwesome
+        {
+            get { return _isAwesome; }
+            set { _isAwesome = value; }
+        }
+    }
 }

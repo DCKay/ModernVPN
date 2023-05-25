@@ -40,22 +40,20 @@
                    Foreground="White"
                    Grid.Row="1"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Top"/>
-
-
+                   VerticalAlignment="Top" />
 
         <Button Width="250"
                 Height="45"
                 Content="Connect"
                 Grid.Row="1"
                 Style="{StaticResource ConnectButtonStyle}"
-                Command="{Binding ConnectCommand}"/>
+                Command="{Binding ConnectCommand}" />
 
         <CheckBox IsChecked="{Binding Global.IsAwesome}"
                   Grid.Row="1"
                   HorizontalAlignment="Center"
                   VerticalAlignment="Bottom"
                   Content="IsAwesome"
-                  Foreground="White"/>
+                  Foreground="White" />
     </Grid>
 </UserControl>
