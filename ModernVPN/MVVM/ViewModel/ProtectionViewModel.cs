@@ -16,6 +16,7 @@ namespace ModernVPN.MVVM.ViewModel
         public GlobalViewModel Global { get; } = GlobalViewModel.Instance;
 
         private string _connectionStatus;
+        private string _connected = "Connect";
 
         public string ConnectionStatus
         {
@@ -23,6 +24,16 @@ namespace ModernVPN.MVVM.ViewModel
             set
             {
                 _connectionStatus = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Connected
+        {
+            get { return _connected; }
+            set
+            {
+                _connected = value;
                 OnPropertyChanged();
             }
         }
@@ -42,36 +53,70 @@ namespace ModernVPN.MVVM.ViewModel
 
             ConnectCommand = new RelayCommand(o =>
             {
-                Task.Run(() =>
+                if (Connected == "Connect")
                 {
-                    ConnectionStatus = "Connecting...";
-                    var process = new Process();
-                    process.StartInfo.FileName = "cmd.exe";
-                    process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
-                    process.StartInfo.ArgumentList.Add(@"/c rasdial MyServer vpnbook 3ev7r8m /phonebook:./VPN/VPN.pbk");
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = true;
-
-                    process.Start();
-                    process.WaitForExit();
-
-                    switch (process.ExitCode)
+                    Task.Run(() =>
                     {
-                        case 0:
-                            Debug.WriteLine("Success!");
-                            ConnectionStatus = "Connected!";
-                            break;
+                        ConnectionStatus = "Connecting...";
+                        var process = new Process();
+                        process.StartInfo.FileName = "cmd.exe";
+                        process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
+                        process.StartInfo.ArgumentList.Add(@"/c rasdial MyServer vpnbook 3ev7r8m /phonebook:./VPN/VPN.pbk");
+                        process.StartInfo.UseShellExecute = false;
+                        process.StartInfo.CreateNoWindow = true;
 
-                        case 691:
-                            Debug.WriteLine("Wrong credentials!");
-                            ConnectionStatus = "Try a different password?";
-                            break;
+                        process.Start();
+                        process.WaitForExit();
 
-                        default:
-                            Debug.WriteLine($"Error: {process.ExitCode}");
-                            break;
-                    }
-                });
+                        switch (process.ExitCode)
+                        {
+                            case 0:
+                                Debug.WriteLine("Success!");
+                                ConnectionStatus = "Connected!";
+                                Connected = "Disconnect";
+                                break;
+
+                            case 691:
+                                Debug.WriteLine("Wrong credentials!");
+                                ConnectionStatus = "Try a different password?";
+                                break;
+
+                            default:
+                                Debug.WriteLine($"Error: {process.ExitCode}");
+                                break;
+                        }
+                    });
+                }
+                else
+                {
+                    Task.Run(() =>
+                    {
+                        ConnectionStatus = "Disconnecting...";
+                        var process = new Process();
+                        process.StartInfo.FileName = "cmd.exe";
+                        process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
+                        process.StartInfo.ArgumentList.Add(@"/c rasdial /d");
+                        process.StartInfo.UseShellExecute = false;
+                        process.StartInfo.CreateNoWindow = true;
+
+                        process.Start();
+                        process.WaitForExit();
+
+                        switch (process.ExitCode)
+                        {
+                            case 0:
+                                Debug.WriteLine("Success!");
+                                ConnectionStatus = "Disconnected!";
+                                Connected = "Connect";
+                                break;
+
+                            default:
+                                Debug.WriteLine($"Error: {process.ExitCode}");
+                                break;
+                        }
+                    });
+                }
+                
             });
         }
 
