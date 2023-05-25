@@ -18,10 +18,10 @@
         <viewmodel:MainViewModel />
     </Window.DataContext>
 
-    <DockPanel Background="#1f1f1f"
+    <DockPanel Background="#46322b"
                Margin="7">
         <Border Height="28"
-                Background="#252525"
+                Background="#2a221e"
                 DockPanel.Dock="Top">
 
             <Border.InputBindings>
@@ -36,7 +36,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="Hub"
-                       Foreground="LightGray"
+                       Foreground="#c73f65"
                        FontFamily="Poppins"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -60,7 +60,7 @@
 
         <Border Width="48"
                 HorizontalAlignment="Left"
-                Background="#252525">
+                Background="#2a221e">
 
             <Border.Style>
                 <Style>
@@ -98,7 +98,7 @@
                              FontSize="16"
                              Padding="7.6,3.5,8,0"
                              FontWeight="Normal"
-                             Foreground="LightGray"
+                             Foreground="#c73f65"
                              IsChecked="True"
                              Command="{Binding ShowProtecitonView}" />
                 <RadioButton Content="VPN"
@@ -106,13 +106,14 @@
                              FontSize="16"
                              Padding="7.6,3.5,8,0"
                              FontWeight="Normal"
-                             Foreground="LightGray" />
+                             Foreground="#c73f65" 
+                             Command="{Binding ShowSettingsView}"/>
                 <RadioButton Content="Settings"
                              extensions:Extensions.Icon="🔨"
                              FontSize="16"
                              Padding="7.6,3.5,8,0"
                              FontWeight="Normal"
-                             Foreground="LightGray"
+                             Foreground="#c73f65"
                              Command="{Binding ShowSettingsView}" />
             </StackPanel>
         </Border>

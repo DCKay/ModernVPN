@@ -26,11 +26,11 @@
                     <ControlTemplate.Triggers>
 
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#202020" />
+                            <Setter Property="Background" Value="#d580bc" />
                         </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Background" Value="#202020" />
+                            <Setter Property="Background" Value="#46322b" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

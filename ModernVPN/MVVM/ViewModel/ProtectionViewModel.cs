@@ -32,7 +32,7 @@ namespace ModernVPN.MVVM.ViewModel
         public ProtectionViewModel()
         {
             Servers = new ObservableCollection<ServerModel>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
                 Servers.Add(new ServerModel
                 {
