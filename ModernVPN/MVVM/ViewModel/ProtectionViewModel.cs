@@ -17,6 +17,7 @@ namespace ModernVPN.MVVM.ViewModel
 
         private string _connectionStatus;
         private string _connected = "Connect";
+        private string _connectionDetail;
 
         public string ConnectionStatus
         {
@@ -38,6 +39,16 @@ namespace ModernVPN.MVVM.ViewModel
             }
         }
 
+        public string ConnectionDetail
+        {
+            get { return _connectionDetail; }
+            set
+            {
+                _connectionDetail = value;
+                OnPropertyChanged();
+            }
+        }
+
         public RelayCommand ConnectCommand { get; set; }
 
         public ProtectionViewModel()
@@ -53,73 +64,57 @@ namespace ModernVPN.MVVM.ViewModel
 
             ConnectCommand = new RelayCommand(o =>
             {
-                if (Connected == "Connect")
-                {
                     Task.Run(() =>
                     {
-                        ConnectionStatus = "Connecting...";
-                        var process = new Process();
-                        process.StartInfo.FileName = "cmd.exe";
-                        process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
-                        process.StartInfo.ArgumentList.Add(@"/c rasdial MyServer vpnbook 3ev7r8m /phonebook:./VPN/VPN.pbk");
-                        process.StartInfo.UseShellExecute = false;
-                        process.StartInfo.CreateNoWindow = true;
-
-                        process.Start();
-                        process.WaitForExit();
-
-                        switch (process.ExitCode)
+                        if (Connected == "Connect")
                         {
-                            case 0:
-                                Debug.WriteLine("Success!");
-                                ConnectionStatus = "Connected!";
-                                Connected = "Disconnect";
-                                break;
-
-                            case 691:
-                                Debug.WriteLine("Wrong credentials!");
-                                ConnectionStatus = "Try a different password?";
-                                break;
-
-                            default:
-                                Debug.WriteLine($"Error: {process.ExitCode}");
-                                break;
+                            ConnectionStatus = "Connecting...";
+                            ConnectionDetail = "/c rasdial MyServer vpnbook 3ev7r8m /phonebook:./VPN/VPN.pbk";
                         }
-                    });
-                }
-                else
-                {
-                    Task.Run(() =>
-                    {
-                        ConnectionStatus = "Disconnecting...";
-                        var process = new Process();
-                        process.StartInfo.FileName = "cmd.exe";
-                        process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
-                        process.StartInfo.ArgumentList.Add(@"/c rasdial /d");
-                        process.StartInfo.UseShellExecute = false;
-                        process.StartInfo.CreateNoWindow = true;
-
-                        process.Start();
-                        process.WaitForExit();
-
-                        switch (process.ExitCode)
+                        else
                         {
-                            case 0:
-                                Debug.WriteLine("Success!");
-                                ConnectionStatus = "Disconnected!";
-                                Connected = "Connect";
-                                break;
-
-                            default:
-                                Debug.WriteLine($"Error: {process.ExitCode}");
-                                break;
+                            ConnectionStatus = "Disconnecting...";
+                            ConnectionDetail = "/c rasdial /d";
                         }
+                            var process = new Process();
+                            process.StartInfo.FileName = "cmd.exe";
+                            process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
+                            process.StartInfo.ArgumentList.Add($@"{ConnectionDetail}");
+                            process.StartInfo.UseShellExecute = false;
+                            process.StartInfo.CreateNoWindow = true;
+
+                            process.Start();
+                            process.WaitForExit();
+
+                            switch (process.ExitCode)
+                            {
+                                case 0:
+                                    Debug.WriteLine("Success!");
+                                if (Connected == "Connect")
+                                {
+                                    ConnectionStatus = "Connected!";
+                                    Connected = "Disconnect";
+                                    break;
+                                }
+                                    ConnectionStatus = "Disconnected!";
+                                    Connected = "Connect";
+                                    break;
+
+                                case 691:
+                                    Debug.WriteLine("Wrong credentials!");
+                                    ConnectionStatus = "Try a different password?";
+                                    break;
+
+                                default:
+                                    Debug.WriteLine($"Error: {process.ExitCode}");
+                                    break;
+                            }
                     });
-                }
-                
             });
         }
+    
 
+        //VPNbuilder
         private void ServerBuilder()
         {
             var address = "us1.vpnbook.com";
