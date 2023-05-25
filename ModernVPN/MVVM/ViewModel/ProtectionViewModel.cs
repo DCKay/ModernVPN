@@ -64,55 +64,54 @@ namespace ModernVPN.MVVM.ViewModel
 
             ConnectCommand = new RelayCommand(o =>
             {
-                    Task.Run(() =>
+                Task.Run(() =>
+                {
+                    if (Connected == "Connect")
                     {
-                        if (Connected == "Connect")
-                        {
-                            ConnectionStatus = "Connecting...";
-                            ConnectionDetail = "/c rasdial MyServer vpnbook 3ev7r8m /phonebook:./VPN/VPN.pbk";
-                        }
-                        else
-                        {
-                            ConnectionStatus = "Disconnecting...";
-                            ConnectionDetail = "/c rasdial /d";
-                        }
-                            var process = new Process();
-                            process.StartInfo.FileName = "cmd.exe";
-                            process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
-                            process.StartInfo.ArgumentList.Add($@"{ConnectionDetail}");
-                            process.StartInfo.UseShellExecute = false;
-                            process.StartInfo.CreateNoWindow = true;
+                        ConnectionStatus = "Connecting...";
+                        ConnectionDetail = "/c rasdial MyServer vpnbook 3ev7r8m /phonebook:./VPN/VPN.pbk";
+                    }
+                    else
+                    {
+                        ConnectionStatus = "Disconnecting...";
+                        ConnectionDetail = "/c rasdial /d";
+                    }
+                    var process = new Process();
+                    process.StartInfo.FileName = "cmd.exe";
+                    process.StartInfo.WorkingDirectory = Environment.CurrentDirectory;
+                    process.StartInfo.ArgumentList.Add($@"{ConnectionDetail}");
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.CreateNoWindow = true;
 
-                            process.Start();
-                            process.WaitForExit();
+                    process.Start();
+                    process.WaitForExit();
 
-                            switch (process.ExitCode)
+                    switch (process.ExitCode)
+                    {
+                        case 0:
+                            Debug.WriteLine("Success!");
+                            if (Connected == "Connect")
                             {
-                                case 0:
-                                    Debug.WriteLine("Success!");
-                                if (Connected == "Connect")
-                                {
-                                    ConnectionStatus = "Connected!";
-                                    Connected = "Disconnect";
-                                    break;
-                                }
-                                    ConnectionStatus = "Disconnected!";
-                                    Connected = "Connect";
-                                    break;
-
-                                case 691:
-                                    Debug.WriteLine("Wrong credentials!");
-                                    ConnectionStatus = "Try a different password?";
-                                    break;
-
-                                default:
-                                    Debug.WriteLine($"Error: {process.ExitCode}");
-                                    break;
+                                ConnectionStatus = "Connected!";
+                                Connected = "Disconnect";
+                                break;
                             }
-                    });
+                            ConnectionStatus = "Disconnected!";
+                            Connected = "Connect";
+                            break;
+
+                        case 691:
+                            Debug.WriteLine("Wrong credentials!");
+                            ConnectionStatus = "Try a different password?";
+                            break;
+
+                        default:
+                            Debug.WriteLine($"Error: {process.ExitCode}");
+                            break;
+                    }
+                });
             });
         }
-    
 
         //VPNbuilder
         private void ServerBuilder()

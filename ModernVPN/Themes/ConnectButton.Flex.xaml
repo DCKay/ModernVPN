@@ -21,11 +21,10 @@
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Background" Value="#d580bc" />
             </Trigger>
-        
+
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#d580bc" />
             </Trigger>
-
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

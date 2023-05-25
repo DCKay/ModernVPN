@@ -35,7 +35,6 @@
                     <ColumnDefinition Width="100" />
                 </Grid.ColumnDefinitions>
 
-
                 <TextBlock Text="Hub"
                            Foreground="#c73f65"
                            FontFamily="Poppins"
@@ -44,13 +43,13 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Margin="100, 0, 0, 0"
-                           Cursor="AppStarting" >
+                           Cursor="AppStarting">
                     <TextBlock.Effect>
                         <DropShadowEffect ShadowDepth="4"
                                           Direction="330"
                                           Color="black"
                                           Opacity=".8"
-                                          BlurRadius="4"/>
+                                          BlurRadius="4" />
                     </TextBlock.Effect>
                 </TextBlock>
 
@@ -119,8 +118,8 @@
                              FontSize="16"
                              Padding="7.6,3.5,8,0"
                              FontWeight="Normal"
-                             Foreground="#c73f65" 
-                             Command="{Binding ShowSettingsView}"/>
+                             Foreground="#c73f65"
+                             Command="{Binding ShowSettingsView}" />
                 <RadioButton Content="Settings"
                              extensions:Extensions.Icon="🔨"
                              FontSize="16"
