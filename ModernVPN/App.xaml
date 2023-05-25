@@ -8,18 +8,19 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--Themes-->
-                <ResourceDictionary Source="/Themes/TitlebarButton.Flex.xaml"/>
-                <ResourceDictionary Source="/Themes/MenuButton.Flex.xaml"/>
+                <ResourceDictionary Source="/Themes/TitlebarButton.Flex.xaml" />
+                <ResourceDictionary Source="/Themes/MenuButton.Flex.xaml" />
+                <ResourceDictionary Source="/Themes/ConnectButton.Flex.xaml" />
+                <ResourceDictionary Source="/Themes/ServerListTheme.Flex.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type vms:ProtectionViewModel}">
                 <view:ProtectionView />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type vms:SettingsViewModel}">
                 <view:SettingsView />
             </DataTemplate>
-            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

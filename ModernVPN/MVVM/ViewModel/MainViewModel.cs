@@ -30,7 +30,6 @@ namespace ModernVPN.MVVM.ViewModel
         public ProtectionViewModel ProtectionVM { get; set; }
         public SettingsViewModel SettingsVM { get; set; }
 
-
         public MainViewModel()
         {
             ProtectionVM = new ProtectionViewModel();
@@ -50,8 +49,8 @@ namespace ModernVPN.MVVM.ViewModel
             });
             MinimizeWindowCommand = new RelayCommand(o => { Application.Current.MainWindow.WindowState = WindowState.Minimized; });
 
-            ShowProtecitonView = new RelayCommand(o => { CurrentView = ProtectionVM; });  
-            ShowSettingsView = new RelayCommand(o => { CurrentView = SettingsVM; });  
+            ShowProtecitonView = new RelayCommand(o => { CurrentView = ProtectionVM; });
+            ShowSettingsView = new RelayCommand(o => { CurrentView = SettingsVM; });
         }
     }
 }

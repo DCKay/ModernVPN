@@ -3,8 +3,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewmodel="clr-namespace:ModernVPN.MVVM.ViewModel"
         xmlns:extensions="clr-namespace:ModernVPN.Core"
+        xmlns:viewmodel="clr-namespace:ModernVPN.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
@@ -15,7 +15,7 @@
         ResizeMode="CanResize">
 
     <Window.DataContext>
-        <viewmodel:MainViewModel/>
+        <viewmodel:MainViewModel />
     </Window.DataContext>
 
     <DockPanel Background="#1f1f1f"
@@ -47,13 +47,13 @@
                             Margin="0, 0, 4, 0">
                     <Button Content="―"
                             Command="{Binding MinimizeWindowCommand}"
-                            Padding="0,0,0,3"/>
+                            Padding="0,0,0,3" />
                     <Button Content="☐"
                             Command="{Binding MaximizeWindowCommand}"
-                            Padding="0,0,0,3"/>
+                            Padding="0,0,0,3" />
                     <Button Content="✕"
                             Command="{Binding ShutdownWindowCommand}"
-                            Padding="0,0,0,3"/>
+                            Padding="0,0,0,3" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -99,8 +99,8 @@
                              Padding="7.6,3.5,8,0"
                              FontWeight="Normal"
                              Foreground="LightGray"
-                             IsChecked="True" 
-                             Command="{Binding ShowProtecitonView}"/>
+                             IsChecked="True"
+                             Command="{Binding ShowProtecitonView}" />
                 <RadioButton Content="VPN"
                              extensions:Extensions.Icon="&#128373;"
                              FontSize="16"
@@ -113,10 +113,10 @@
                              Padding="7.6,3.5,8,0"
                              FontWeight="Normal"
                              Foreground="LightGray"
-                             Command="{Binding ShowSettingsView}"/>
+                             Command="{Binding ShowSettingsView}" />
             </StackPanel>
         </Border>
 
-        <ContentPresenter Content="{Binding CurrentView}"/>
+        <ContentPresenter Content="{Binding CurrentView}" />
     </DockPanel>
 </Window>
